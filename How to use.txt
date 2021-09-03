@@ -1,0 +1,4 @@
+1. Rename the "Template" folder to be the jams name
+2. Rename the "Project" folder to be the jams theme
+3. Open the RENAMED "Project" folder inside unity hub
+4. Go
