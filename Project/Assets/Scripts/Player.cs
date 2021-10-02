@@ -2,12 +2,13 @@
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speed, jump;
-	[SerializeField] Rigidbody2D rb; 
+    public float speed, jump;
+	public Rigidbody2D rb; 
 	[SerializeField] Vector2 spawnpoint;
 	[SerializeField] bool isGround; float movement;
 	[SerializeField] Transform voidArea;
 	public static Player i;
+	public PowerUp power;
 
 	void Awake()
 	{
@@ -18,13 +19,12 @@ public class Player : MonoBehaviour
 	{
 		//Get the moving as horizontal input smoothly
 		movement = Input.GetAxisRaw("Horizontal");
-		//If press the up arrow and is on the ground
-		if(Input.GetKey(KeyCode.UpArrow) && isGround)
-		{
-			//Add the jump force upward using force
-			rb.velocity = Vector2.up * jump;
-		}
+		//Jump if press the up arrow and is on the ground
+		if(Input.GetKey(KeyCode.UpArrow) && isGround) {Jump();}
 	}
+
+	//Add the jump force upward using force
+	public void Jump() {rb.velocity = Vector2.up * jump;}
 
 	void FixedUpdate()
 	{
