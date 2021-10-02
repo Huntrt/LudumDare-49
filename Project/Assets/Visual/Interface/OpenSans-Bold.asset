@@ -154,11 +154,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: OpenSans-Bold SDF
+  m_Name: OpenSans-Bold
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -400447917
   material: {fileID: -7135446256314671203}
-  materialHashCode: 0
+  materialHashCode: -2098528877
   m_Version: 1.1.0
   m_SourceFontFileGUID: 808572e08f321e0498a6519253ed8477
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 808572e08f321e0498a6519253ed8477,
