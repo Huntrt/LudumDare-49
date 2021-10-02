@@ -1,7 +1,7 @@
 Player:
 	▪ Movement
-		▪ Left right
-		▪ Jump
+		✓ Left right
+		✓ Jump
 	▪ Getting score
 	▪ Squash effect @consider
 	▪ Ability @consider
