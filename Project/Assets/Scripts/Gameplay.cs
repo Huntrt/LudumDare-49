@@ -10,6 +10,9 @@ public class Gameplay : MonoBehaviour
 	public float despawnLimit;
 	[SerializeField] Transform startPillar;
 	public Vector2 latestPillar;
+	[Header("Power")]
+	public float chance;
+	public GameObject[] power;
 
     void Awake()
     {
@@ -33,8 +36,6 @@ public class Gameplay : MonoBehaviour
 
     public void NextPillar()
     {
-		//Increase score
-		score++;
 		//The next position to spawn
 		Vector2 nextPos = Vector2.zero;
 		//Increase X axis with randomly min max distance
