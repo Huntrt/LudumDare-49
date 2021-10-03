@@ -15,12 +15,20 @@ public class Player : MonoBehaviour
 	public GameObject overMenu;
 	[SerializeField] TMPro.TextMeshProUGUI overTitle;
 	[SerializeField] AudioClip dieSound;
+	[SerializeField] GameObject dieEffect;
+	Vector2 prevPos;
 
 	//Make player into singleton and reset time scale
 	void Awake() {Time.timeScale = 1;i = this;}
 
 	void Update()
 	{
+		//Get the X.X amount has travel from previous frame
+		float travel = Vector2.Distance(transform.position, prevPos);
+		//Increase the score with travel
+		Generator.i.score += travel;
+		//Update the previous frame position
+		prevPos = transform.position;
 		//When pressing any key and haven't started
 		if(!started && Input.anyKeyDown)
 		{
@@ -68,7 +76,11 @@ public class Player : MonoBehaviour
 		//Acitve the game over menu and deactive the player
 		overMenu.SetActive(true); gameObject.SetActive(false);
 		//Display the over text with score
-		overTitle.text = "GAME OVER - Score: " + Generator.i.score; 
+		overTitle.text = "GAME OVER - Score: " + (System.Math.Round(Generator.i.score,1)).ToString(); 
+		//Create die effect
+		Instantiate(dieEffect, transform.position, Quaternion.identity);
+		//Lock the power
+		lockPower.SetActive(true);
 		SoundManager.i.source.PlayOneShot(dieSound); 
 	}
 

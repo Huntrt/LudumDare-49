@@ -6368,6 +6368,8 @@ MonoBehaviour:
   overMenu: {fileID: 1094447892}
   overTitle: {fileID: 278483994}
   dieSound: {fileID: 8300000, guid: 0b02209ded51ea541815559c05224b3f, type: 3}
+  dieEffect: {fileID: 9199273823793263173, guid: 0062020b4beb230438f83d800f218c93,
+    type: 3}
 --- !u!1 &508218908
 GameObject:
   m_ObjectHideFlags: 0
@@ -6754,7 +6756,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &571756926
 MonoBehaviour:
@@ -9272,7 +9274,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: a571d3e70cdfa1e44bb86a056431969e, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
