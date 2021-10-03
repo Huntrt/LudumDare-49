@@ -30,7 +30,7 @@ public class Generator : MonoBehaviour
 	void Update()
 	{
 		//Display score
-		scoreCounter.text = (System.Math.Round(score,1)).ToString();
+		scoreCounter.text = (System.Math.Round(score)).ToString();
 		//Back to game if the game has over while pressing space
 		if(Player.i.overMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Space)) {scene.ToGame();}
 	}

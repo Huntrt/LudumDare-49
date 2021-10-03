@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
 		//Acitve the game over menu and deactive the player
 		overMenu.SetActive(true); gameObject.SetActive(false);
 		//Display the over text with score
-		overTitle.text = "GAME OVER - Score: " + (System.Math.Round(Generator.i.score,1)).ToString(); 
+		overTitle.text = "GAME OVER - Score: " + (System.Math.Round(Generator.i.score)).ToString(); 
 		//Create die effect
 		Instantiate(dieEffect, transform.position, Quaternion.identity);
 		//Lock the power
