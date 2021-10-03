@@ -4,26 +4,32 @@ public class Pillar : MonoBehaviour
 {
 	bool passed;
 	[SerializeField] bool creating;
-	Generator generate; Player player;
+	Generator generate; Player player; Point point; 
 	[SerializeField] Rigidbody2D rb;
 	public bool locked;
 	[SerializeField] SpriteRenderer render;
 	[SerializeField] Color defaultColor;
+	[SerializeField] Color goldenColor;
 	[SerializeField] Color lockColor;
 	[SerializeField] Color freezeColor;
+	[SerializeField] bool golden;
 
 	void Start()
 	{
-		//Get the gameplay and player
-		generate = Generator.i; player = Player.i;
+		//Get the gameplay, player and point
+		generate = Generator.i; player = Player.i; point = Point.i;
+		//Increase the generate count
+		generate.created++;
+		//If this pillar are at the golden rate then make golden 
+		if(generate.created % point.goldenRate == 0) {;render.color = goldenColor; golden = true;}
 		//Save the default color
 		defaultColor = render.color;
 	}
 
 	void Update()
 	{
-		//When the pillat has go out of despawn limit
-		if(Vector2.Distance(player.transform.position, transform.position) > generate.despawnLimit)
+		//When the pillar has go out of despawn limit on the X asix
+		if((player.transform.position.x - transform.position.x) > generate.despawnLimit)
 		{
 			//Destroy the object
 			Destroy(gameObject);
@@ -33,8 +39,8 @@ public class Pillar : MonoBehaviour
 		{
 			//Start the next pillar if this pillar need to create
 			if(creating) {generate.NextPillar();}
-			//Increase the game score and point
-			generate.score++; Point.i.IncreasePoint();
+			//Increase the game score
+			generate.score++;
 			//Has been pass
 			passed = true;
 		}
@@ -44,5 +50,13 @@ public class Pillar : MonoBehaviour
 		if(player.power.freezed) {rb.bodyType = RigidbodyType2D.Static;render.color = freezeColor;}
 		//Change rigid body back to dynamic if power are unfreezed then reset to default color
 		else if(!locked) {rb.bodyType = RigidbodyType2D.Dynamic; render.color = defaultColor;}
+	}
+
+	public void GettingPoint() 
+	{
+		//Increase power normally if this pillar is not golden
+		if(!golden) {point.IncreasePassPoint();}
+		//Increase golen power if it is golden
+		else {point.IncreaseGoldenPower();}
 	}
 }

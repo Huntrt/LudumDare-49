@@ -158,8 +158,10 @@ MonoBehaviour:
   locked: 0
   render: {fileID: 4034409573914863807}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  goldenColor: {r: 1, g: 0.753687, b: 0, a: 1}
   lockColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   freezeColor: {r: 0.2509804, g: 0.41568625, b: 0.5, a: 1}
+  golden: 0
 --- !u!1 &4034409573914863806
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +174,7 @@ GameObject:
   - component: {fileID: 4034409573914863807}
   - component: {fileID: 4034409573914863793}
   - component: {fileID: 4034409573914863794}
+  - component: {fileID: 2106095821020646742}
   m_Layer: 9
   m_Name: Base
   m_TagString: Pillar
@@ -290,3 +293,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &2106095821020646742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4034409573914863806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d32c999a8e20e48af8b89b28e75c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pillar: {fileID: 1464413580}

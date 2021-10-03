@@ -123,6 +123,8 @@ public class Power : MonoBehaviour
 			//If begin place block
 			if(placeBlock)
 			{
+				//Pause the game
+				Time.timeScale = 0;
 				//No longer able to press block button
 				blockButton.interactable = false;
 				//If pressing the mouse button
@@ -132,6 +134,8 @@ public class Power : MonoBehaviour
 					Instantiate(block, mousePos, Quaternion.identity);
 					//Has placed block
 					placeBlock = false;
+					//Unpause the game
+					Time.timeScale = 1;
 					//Able to interact with block button
 					blockButton.interactable = true;
 				}
