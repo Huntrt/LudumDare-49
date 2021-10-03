@@ -8,6 +8,7 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+[Ee]ditor/
 [Uu]ser[Ss]ettings/
 
 # MemoryCaptures are removed
@@ -63,4 +64,8 @@ crashlytics-build.properties
 
 # Temporary auto-generated Android Assets
 [Aa]ssets/[Ss]treamingAssets/aa.meta
+
+#Misc
+desktop.ini
+revise.txt
 [Aa]ssets/[Ss]treamingAssets/aa/*
