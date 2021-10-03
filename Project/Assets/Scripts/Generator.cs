@@ -5,6 +5,7 @@ public class Generator : MonoBehaviour
 	public static Generator i;
 	public int score;
 	[SerializeField] TMPro.TextMeshProUGUI scoreCounter;
+	public int created;
 	[Header("Pillar")] public GameObject pillar;
 	[SerializeField] float minDistance, maxDistance, minHeight, maxHeight;
 	public float despawnLimit;

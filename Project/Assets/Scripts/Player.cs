@@ -10,14 +10,23 @@ public class Player : MonoBehaviour
 	public static Player i;
 	public Power power;
 	public GameObject blockIndicate, lockIndicate;
+	public bool started;
 
 	//Make player into singleton
 	void Awake() {i = this;}
 
+	void Update()
+	{
+		//Start when pressing space
+		if(!started && Input.GetKeyDown(KeyCode.Space)) 
+		//Change type to dynamic and start the game
+		{started = true; rb.bodyType = RigidbodyType2D.Dynamic;}
+	}
+
 	void FixedUpdate()
 	{
-		//Moving the rigidbody along the X axis with speed 
-		rb.velocity = new Vector2(1 * speed, rb.velocity.y);
+		//Moving the rigidbody along the X axis with speed if started
+		if(started) rb.velocity = new Vector2(1 * speed, rb.velocity.y);
 	}
 
 	void LateUpdate()

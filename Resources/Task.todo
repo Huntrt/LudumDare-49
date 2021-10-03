@@ -26,7 +26,7 @@ Player:
 Interface:
 	✓ Score counter
 	✓ Power Counter
-	▪ Use power by number
+	▪ Power Increase
 	▪ Title
 	▪ Play
 	▪ Restart
