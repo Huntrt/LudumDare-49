@@ -3,7 +3,7 @@
 public class Generator : MonoBehaviour
 {
 	public static Generator i;
-	public int score;
+	public float score;
 	[SerializeField] TMPro.TextMeshProUGUI scoreCounter;
 	public int created;
 	[Header("Pillar")] public GameObject pillar;
@@ -30,7 +30,7 @@ public class Generator : MonoBehaviour
 	void Update()
 	{
 		//Display score
-		scoreCounter.text = score.ToString();
+		scoreCounter.text = (System.Math.Round(score,1)).ToString();
 		//Back to game if the game has over while pressing space
 		if(Player.i.overMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Space)) {scene.ToGame();}
 	}

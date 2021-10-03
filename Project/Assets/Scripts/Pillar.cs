@@ -40,8 +40,6 @@ public class Pillar : MonoBehaviour
 		{
 			//Start the next pillar if this pillar need to create
 			if(creating) {generate.NextPillar();}
-			//Increase the game score
-			generate.score++;
 			//Has been pass
 			passed = true;
 		}
