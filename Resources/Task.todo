@@ -10,13 +10,13 @@ Player:
 ✓ Map:
 	✓ Camera
 		✓ Follow
-		▪ Follow X asix @consider
+		X Follow X asix @consider
 	▪ Pillar
 		✓ Getting score
-		▪ Getting point
-			▪ Randomly each pillar
-			▪ Chance to get an huge amount
-			▪ Huge amount after certain pillar
+		✓ Getting point
+			✓ Randomly each pillar
+			✓ Chance to get an huge amount
+			✓ Huge amount after certain pillar
 		✓ Procedural spawn
 		✓ Destroy when out of sight
 		✓ Stabling when spawn
@@ -26,7 +26,9 @@ Player:
 Interface:
 	✓ Score counter
 	✓ Power Counter
-	▪ Power Increase
+	✓ Power Increase
 	▪ Title
 	▪ Play
 	▪ Restart
+	▪ Sound
+	▪ Tutorial
