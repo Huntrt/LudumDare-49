@@ -310,6 +310,9 @@ MonoBehaviour:
   lockCostUI: {fileID: 1244581229}
   blockCostUI: {fileID: 1044931178}
   freezeCostUI: {fileID: 1386960364}
+  blockButton: {fileID: 1590794233}
+  lockButton: {fileID: 2104560643}
+  freezeButton: {fileID: 847443354}
 --- !u!4 &117710009
 Transform:
   m_ObjectHideFlags: 0
@@ -3487,7 +3490,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.38387096, g: 0.7, b: 0.38387096, a: 1}
     m_PressedColor: {r: 0.27419353, g: 0.5, b: 0.27419353, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.10769231, g: 0.2, b: 0.10769231, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4208,7 +4211,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
     m_PressedColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
