@@ -8,6 +8,7 @@ public class Pillar : MonoBehaviour
 	[SerializeField] Rigidbody2D rb;
 	public bool locked;
 	[SerializeField] SpriteRenderer render;
+	[SerializeField] SpriteRenderer shadow;
 	[SerializeField] Color defaultColor;
 	[SerializeField] Color goldenColor;
 	[SerializeField] Color lockColor;
@@ -29,6 +30,10 @@ public class Pillar : MonoBehaviour
 
 	void Update()
 	{
+		//Get the hsv color
+		float h,s,v; Color.RGBToHSV(render.color, out h, out s, out v);
+		//Lower the shadow birghtness
+		shadow.color = Color.HSVToRGB(h,s,v-0.02f);
 		//When the pillar has go out of despawn limit on the X asix
 		if((player.transform.position.x - transform.position.x) > generate.despawnLimit)
 		{
