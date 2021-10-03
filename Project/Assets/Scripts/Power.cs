@@ -11,10 +11,12 @@ public class Power : MonoBehaviour
 		public int airJumpCost; 
 		int jumpCost;
 		public float jumpForce;
-		[SerializeField] GameObject groundJump, airJump;
+		[SerializeField] GameObject groundJump, airJump, jumpEffect;
 	[Header("Boost")]
 		public int boostCost; 
 		public float boostSpeed; public float boostDuration;
+		[SerializeField] GameObject boostEffect;
+		[SerializeField] TrailRenderer boosteTrail;
 	[Header("Block")]
 		public int blockCost;
 		public bool placeBlock = false;
@@ -31,6 +33,7 @@ public class Power : MonoBehaviour
 	public TextMeshProUGUI groundJumpCostUI;
 	public TextMeshProUGUI airJumpCostUI, boostCostUI, lockCostUI, blockCostUI, freezeCostUI;
 	public Button groundJumpButton, airJumpButton, boostButton, blockButton, lockButton, freezeButton;
+	public AudioClip jumpSound, boostSound, lockSound, blockSound, freezeSound;
 	Rigidbody2D rb;
 	Vector2 mousePos;
 	Player p;
@@ -62,8 +65,13 @@ public class Power : MonoBehaviour
 		if(!Player.i.lockPower.activeInHierarchy)
 		{
 			//@ Run ability when press 1 to 5 and only work if it button are interactable
-			if(Input.GetKeyDown(KeyCode.Alpha1)&&(airJumpButton.interactable||groundJumpButton.interactable))
-			{Jumping();}
+			if(Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				//Able to use air jump while not on the ground
+				if(airJumpButton.interactable && !Player.i.isGround) {Jumping();}
+				//Jump if on the ground
+				if(Player.i.isGround) {Jumping();}
+			}
 			if(Input.GetKeyDown(KeyCode.Alpha2)&&boostButton.interactable) {Boosting();}
 			if(Input.GetKey(KeyCode.Alpha3)&&blockButton.interactable) {Block();}
 			if(Input.GetKey(KeyCode.Alpha4)&&lockButton.interactable) {Locking();}
@@ -93,8 +101,11 @@ public class Power : MonoBehaviour
 		{
 			//Consume the cost
 			powerPoint -= jumpCost;
+			//Create jump effect
+			Instantiate(jumpEffect, Player.i.transform.position, Quaternion.identity);
 			//Jump upward using jump force
 			rb.velocity = Vector2.up * jumpForce;
+			SoundManager.i.source.PlayOneShot(jumpSound);
 		}
 		void JumpChange()
 		{
@@ -110,11 +121,15 @@ public class Power : MonoBehaviour
 		{
 			//Consume the cost
 			powerPoint -= boostCost;
+			//Create booste effect
+			Instantiate(boostEffect, Player.i.transform.position, Quaternion.identity);
+			SoundManager.i.source.PlayOneShot(boostSound);
+			boosteTrail.emitting = true;
 			//Increase the player speed with boost speed then begin reset it after duration
 			p.speed += boostSpeed; Invoke("ResetBoost", boostDuration);
 		}
 		//Reset the player speed from boosting
-		void ResetBoost() {p.speed -= boostSpeed;}
+		void ResetBoost() {p.speed -= boostSpeed; boosteTrail.emitting = false;}
 	#endregion
 
 	#region Block
@@ -141,6 +156,7 @@ public class Power : MonoBehaviour
 				//If pressing the mouse button
 				if(Input.GetMouseButtonDown(0))
 				{
+					SoundManager.i.source.PlayOneShot(blockSound);
 					//Create theblock at mouse position with no rotation
 					Instantiate(block, mousePos, Quaternion.identity);
 					//Has placed block
@@ -188,6 +204,7 @@ public class Power : MonoBehaviour
 						//If pillar are not lock
 						if(!pillar.locked) 
 						{
+							SoundManager.i.source.PlayOneShot(lockSound);
 							//Lock the pillar and has used lock
 							pillar.locked = true; locking = false;
 							//Able to interact with lock button
@@ -202,13 +219,14 @@ public class Power : MonoBehaviour
 	#region Freezing
 		public void Freezing() 
 		{
-			//If able to freeze
-			if(!freezed) 
+			//If able to freeze and still has point to freeze
+			if(!freezed && powerPoint >= freezeCost) 
 			{
 				//Begin freeze 
 				freezed = true;
 				//Consume the cost
 				powerPoint -= freezeCost;
+				SoundManager.i.source.PlayOneShot(freezeSound);
 			}
 		}
 		void BeginFreeze()

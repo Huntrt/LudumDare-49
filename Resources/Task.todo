@@ -11,7 +11,7 @@ Player:
 	✓ Camera
 		✓ Follow
 		X Follow X asix @consider
-	▪ Pillar
+	✓ Pillar
 		✓ Getting score
 		✓ Getting point
 			✓ Randomly each pillar
@@ -31,4 +31,4 @@ Interface:
 	✓ Play
 	✓ Restart
 	▪ Sound
-	▪ Tutorial
+	✓ Tutorial
