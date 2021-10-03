@@ -29,6 +29,7 @@ public class Power : MonoBehaviour
 	[Header("Interface")]
 	public TextMeshProUGUI groundJumpCostUI;
 	public TextMeshProUGUI airJumpCostUI, boostCostUI, lockCostUI, blockCostUI, freezeCostUI;
+	public Button blockButton, lockButton, freezeButton;
 	Rigidbody2D rb;
 	Player player;
 
@@ -54,6 +55,8 @@ public class Power : MonoBehaviour
 		//If begin place block
 		if(placeBlock)
 		{
+			//No longer able to press block button
+			blockButton.interactable = false;
 			//If pressing the mouse button
 			if(Input.GetMouseButtonDown(0))
 			{
@@ -61,11 +64,15 @@ public class Power : MonoBehaviour
 				Instantiate(block, mousePos, Quaternion.identity);
 				//Has placed block
 				placeBlock = false;
+				//Able to interact with block button
+				blockButton.interactable = true;
 			}
 		}
 		//If begin locking
 		if(locking)
 		{
+			//No longer able to press lock button
+			lockButton.interactable = false;
 			//If pressing the mouse button
 			if(Input.GetMouseButtonDown(0))
 			{
@@ -78,8 +85,14 @@ public class Power : MonoBehaviour
 				{
 					//Get the pillar raycast has hit
 					Pillar pillar = ray.collider.transform.parent.GetComponent<Pillar>();
-					//Lock the pillar if it haven't been lock and has used lock
-					if(!pillar.locked) {pillar.locked = true; locking = false;}
+					//If pillar are not lock
+					if(!pillar.locked) 
+					{
+						//Lock the pillar and has used lock
+						pillar.locked = true; locking = false;
+						//Able to interact with lock button
+						lockButton.interactable = true;
+					}
 				}
 			}
 		}
@@ -127,14 +140,22 @@ public class Power : MonoBehaviour
 
 	public void Block() 
 	{
-		//Placing block
-		placeBlock = true;
+		//If able to interact with block button	
+		if(blockButton.interactable)
+		{
+			//Placing block
+			placeBlock = true;
+		}
 	}
 
 	public void Locking() 
 	{
-		//Locking
-		locking = true;
+		//If able to interact with lock button	
+		if(lockButton.interactable)
+		{
+			//Locking
+			locking = true;
+		}
 	}
 
 	public void Freezing() 
