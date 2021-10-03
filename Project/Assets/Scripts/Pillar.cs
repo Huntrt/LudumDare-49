@@ -4,28 +4,26 @@ public class Pillar : MonoBehaviour
 {
 	bool passed;
 	[SerializeField] bool creating;
-	[SerializeField] Transform powerPos;
-	Gameplay gameplay; Player player;
+	Generator generate; Player player;
 	[SerializeField] Rigidbody2D rb;
+	public bool locked;
+	[SerializeField] SpriteRenderer render;
+	[SerializeField] Color defaultColor;
+	[SerializeField] Color lockColor;
+	[SerializeField] Color freezeColor;
 
 	void Start()
 	{
 		//Get the gameplay and player
-		gameplay = Gameplay.i; player = Player.i;
-		//If able to spawn power by random chance
-		if(Random.Range(0,101) < gameplay.chance)
-		{
-			//Randomly chose between an list of power
-			int chose = Random.Range(0,gameplay.power.Length);
-			//Create the chosed power and position with no rotation
-			Instantiate(gameplay.power[chose], powerPos.position, Quaternion.identity);
-		}
+		generate = Generator.i; player = Player.i;
+		//Save the default color
+		defaultColor = render.color;
 	}
 
 	void Update()
 	{
 		//When the pillat has go out of despawn limit
-		if(Vector2.Distance(player.transform.position, transform.position) > gameplay.despawnLimit)
+		if(Vector2.Distance(player.transform.position, transform.position) > generate.despawnLimit)
 		{
 			//Destroy the object
 			Destroy(gameObject);
@@ -33,14 +31,18 @@ public class Pillar : MonoBehaviour
 		//If this is the first time player has pass this pillar
 		if(transform.position.x < player.transform.position.x && !passed)
 		{
-			//Start the next pillar if this pillar need to create and increase score
-			if(creating) {Gameplay.i.NextPillar(); gameplay.score++;}
+			//Start the next pillar if this pillar need to create
+			if(creating) {generate.NextPillar();}
+			//Increase the game score and point
+			generate.score++; Point.i.IncreasePoint();
 			//Has been pass
 			passed = true;
 		}
-		//Change rigid body to static if power are paused
-		if(player.power.paused) {rb.bodyType = RigidbodyType2D.Static;}
-		//Change rigid body back to dynamic if power are unpaused
-		else {rb.bodyType = RigidbodyType2D.Dynamic;}
+		//Change rigidbody to static if has been lock and change the color to lock, default color to lock
+		if(locked) {rb.bodyType = RigidbodyType2D.Static;render.color = lockColor;defaultColor=lockColor;}
+		//Change rigid body to static if power are freezed then change the color to freeze
+		if(player.power.freezed) {rb.bodyType = RigidbodyType2D.Static;render.color = freezeColor;}
+		//Change rigid body back to dynamic if power are unfreezed then reset to default color
+		else if(!locked) {rb.bodyType = RigidbodyType2D.Dynamic; render.color = defaultColor;}
 	}
 }

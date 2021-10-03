@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using UnityEngine; using UnityEngine.Events;
 
-public class Gameplay : MonoBehaviour
+public class Generator : MonoBehaviour
 {
-	public static Gameplay i;
+	public static Generator i;
 	public int score;
 	[SerializeField] TMPro.TextMeshProUGUI scoreCounter;
 	[Header("Pillar")] public GameObject pillar;
@@ -10,9 +10,6 @@ public class Gameplay : MonoBehaviour
 	public float despawnLimit;
 	[SerializeField] Transform startPillar;
 	public Vector2 latestPillar;
-	[Header("Power")]
-	public float chance;
-	public GameObject[] power;
 
     void Awake()
     {

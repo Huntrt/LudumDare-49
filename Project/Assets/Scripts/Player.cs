@@ -2,34 +2,22 @@
 
 public class Player : MonoBehaviour
 {
-    public float speed, jump;
+    public float speed;
 	public Rigidbody2D rb; 
+	public bool isGround;
 	[SerializeField] Vector2 spawnpoint;
-	[SerializeField] bool isGround; float movement;
 	[SerializeField] Transform voidArea;
 	public static Player i;
-	public PowerUp power;
+	public Power power;
+	public GameObject blockIndicate, lockIndicate;
 
-	void Awake()
-	{
-		i = this;
-	}
-
-	void Update()
-	{
-		//Get the moving as horizontal input smoothly
-		movement = Input.GetAxisRaw("Horizontal");
-		//Jump if press the up arrow and is on the ground
-		if(Input.GetKey(KeyCode.UpArrow) && isGround) {Jump();}
-	}
-
-	//Add the jump force upward using force
-	public void Jump() {rb.velocity = Vector2.up * jump;}
+	//Make player into singleton
+	void Awake() {i = this;}
 
 	void FixedUpdate()
 	{
 		//Moving the rigidbody along the X axis with speed 
-		rb.velocity = new Vector2(movement * speed, rb.velocity.y);
+		rb.velocity = new Vector2(1 * speed, rb.velocity.y);
 	}
 
 	void LateUpdate()
@@ -38,6 +26,16 @@ public class Player : MonoBehaviour
 		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 		//Make the void area follow along the player X axis
 		voidArea.position = new Vector2(transform.position.x, voidArea.position.y);
+		//Update the state of indicate
+		blockIndicate.SetActive(power.placeBlock); lockIndicate.SetActive(power.locking);
+		//If the block indicate is active
+		if(blockIndicate.activeInHierarchy)
+		//Make it follow the mouse
+		{blockIndicate.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);}
+		//If the lock indicate is active
+		if(lockIndicate.activeInHierarchy)
+		//Make it follow the mouse
+		{lockIndicate.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);}
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) 
