@@ -162,6 +162,7 @@ MonoBehaviour:
   lockColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   freezeColor: {r: 0.2509804, g: 0.41568625, b: 0.5, a: 1}
   golden: 0
+  goldenGet: {fileID: 8300000, guid: 573eec538df9ee64ea8a6c187f25caeb, type: 3}
 --- !u!1 &4034409573914863806
 GameObject:
   m_ObjectHideFlags: 0

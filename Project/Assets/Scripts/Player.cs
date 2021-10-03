@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	public GameObject startTutor, lockPower;
 	public GameObject overMenu;
 	[SerializeField] TMPro.TextMeshProUGUI overTitle;
+	[SerializeField] AudioClip dieSound;
 
 	//Make player into singleton and reset time scale
 	void Awake() {Time.timeScale = 1;i = this;}
@@ -67,7 +68,8 @@ public class Player : MonoBehaviour
 		//Acitve the game over menu and deactive the player
 		overMenu.SetActive(true); gameObject.SetActive(false);
 		//Display the over text with score
-		overTitle.text = "GAME OVER - Score: " + Generator.i.score;  
+		overTitle.text = "GAME OVER - Score: " + Generator.i.score; 
+		SoundManager.i.source.PlayOneShot(dieSound); 
 	}
 
 	private void OnCollisionExit2D(Collision2D other) 

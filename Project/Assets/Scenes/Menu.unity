@@ -2946,17 +2946,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'When touching a pillar you will get a random amount of power, every 5
-    pillar a GOLDEN pillar will appear that give you way more power.
+  m_text: 'When touching a pillar you will get a random amount of power, for every
+    10 pillar a GOLDEN pillar will appear that give you way more power.
 
 
-    You can
-    see Power in the bottom right along with it income, you can also see how much
-    an ability cost on it left side.
+    You
+    can see Power in the bottom right along with it income, you can also see how
+    much power an ability cost on it left side.
 
 
-    Try to spend power for ability to help
-    the cube travel safety on those unstable pillar.'
+    Try to spend power for ability
+    to help the cube travel safety on those unstable pillar.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3348,7 +3348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: An basic jump that cost 0 when touching pillar and 3 when in mid air
+  m_text: An basic jump that cost 0 when touching pillar and 5 when in mid air
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

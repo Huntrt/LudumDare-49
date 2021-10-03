@@ -13,6 +13,7 @@ public class Pillar : MonoBehaviour
 	[SerializeField] Color lockColor;
 	[SerializeField] Color freezeColor;
 	[SerializeField] bool golden;
+	[SerializeField] AudioClip goldenGet;
 
 	void Start()
 	{
@@ -57,6 +58,6 @@ public class Pillar : MonoBehaviour
 		//Increase power normally if this pillar is not golden
 		if(!golden) {point.IncreasePassPoint();}
 		//Increase golen power if it is golden
-		else {point.IncreaseGoldenPower();}
+		else {point.IncreaseGoldenPower();SoundManager.i.source.PlayOneShot(goldenGet);}
 	}
 }
