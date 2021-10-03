@@ -39,7 +39,7 @@ public class Power : MonoBehaviour
 	{
 		//Get the player and it rigidbody
 		p = Player.i; rb = p.rb;
-		//Update the cost UI
+		//@ Update the cost UI
 		groundJumpCostUI.text = groundJumpCost.ToString();
 		airJumpCostUI.text = airJumpCost.ToString();
 		boostCostUI.text = boostCost.ToString();
@@ -58,11 +58,22 @@ public class Power : MonoBehaviour
 		CostManagement();
 		//Run power function
 		JumpChange(); PlacingBlock(); StartLocking(); BeginFreeze();
+		//The power are not been lock
+		if(!Player.i.lockPower.activeInHierarchy)
+		{
+			//@ Run ability when press 1 to 5 and only work if it button are interactable
+			if(Input.GetKeyDown(KeyCode.Alpha1)&&(airJumpButton.interactable||groundJumpButton.interactable))
+			{Jumping();}
+			if(Input.GetKeyDown(KeyCode.Alpha2)&&boostButton.interactable) {Boosting();}
+			if(Input.GetKey(KeyCode.Alpha3)&&blockButton.interactable) {Block();}
+			if(Input.GetKey(KeyCode.Alpha4)&&lockButton.interactable) {Locking();}
+			if(Input.GetKey(KeyCode.Alpha5)) {Freezing();}
+		}
 	}
 
 	void CostManagement()
 	{
-		///Update the button interaction depend of it cost
+		//@ Update the button interaction depend of it cost
 		if(powerPoint >= groundJumpCost) {groundJumpButton.interactable = true;}
 		else {groundJumpButton.interactable = false;}
 		if(powerPoint >= airJumpCost) {airJumpButton.interactable = true;}

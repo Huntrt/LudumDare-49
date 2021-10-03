@@ -2992,7 +2992,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 48164a558593bce46aaecfcf70e85127, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.101960786}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4385,7 +4385,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: a571d3e70cdfa1e44bb86a056431969e, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.101960786}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5291,7 +5291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <press space to begin>
+  m_text: <press any key to begin>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 870b98a93d9e5c0489ca84655e1709bd, type: 2}
   m_sharedMaterial: {fileID: 6694803340821558389, guid: 870b98a93d9e5c0489ca84655e1709bd,

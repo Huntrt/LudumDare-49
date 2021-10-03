@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 	public Power power;
 	public GameObject blockIndicate, lockIndicate;
 	public bool started;
-	[SerializeField] GameObject startTutor, lockPower;
+	public GameObject startTutor, lockPower;
 	public GameObject overMenu;
 	[SerializeField] TMPro.TextMeshProUGUI overTitle;
 
@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
-		//When pressing space and haven't started
-		if(Input.GetKeyDown(KeyCode.Space) && !started)
+		//When pressing any key and haven't started
+		if(!started && Input.anyKeyDown)
 		{
 			//Starting and change rigidbody to dynamic
 			started=true; rb.bodyType = RigidbodyType2D.Dynamic;
