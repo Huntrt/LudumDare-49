@@ -1,19 +1,22 @@
 Player:
 	✓ Auto move
 	✓ Getting score
-	▪ Power
-		▪ Jump
-		▪ Boost
-		▪ Lock
-		▪ Block
-		▪ Freeze 
-Map:
+	✓ Power
+		✓ Jump
+		✓ Boost
+		✓ Lock
+		✓ Block
+		✓ Freeze 
+✓ Map:
 	✓ Camera
 		✓ Follow
 		▪ Follow X asix @consider
 	▪ Pillar
 		✓ Getting score
-		▪ Getting >
+		▪ Getting point
+			▪ Randomly each pillar
+			▪ Chance to get an huge amount
+			▪ Huge amount after certain pillar
 		✓ Procedural spawn
 		✓ Destroy when out of sight
 		✓ Stabling when spawn
@@ -22,8 +25,8 @@ Map:
 	✓ Void kill player
 Interface:
 	✓ Score counter
-	▪ > Counter
+	✓ Power Counter
+	▪ Use power by number
 	▪ Title
 	▪ Play
 	▪ Restart
-	▪ Keybinder @consider

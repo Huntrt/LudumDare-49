@@ -9,6 +9,7 @@ public class Power : MonoBehaviour
 	[Header("Jump")]
 		public int groundJumpCost; 
 		public int airJumpCost; 
+		int jumpCost;
 		public float jumpForce;
 		[SerializeField] GameObject groundJump, airJump;
 	[Header("Boost")]
@@ -29,14 +30,15 @@ public class Power : MonoBehaviour
 	[Header("Interface")]
 	public TextMeshProUGUI groundJumpCostUI;
 	public TextMeshProUGUI airJumpCostUI, boostCostUI, lockCostUI, blockCostUI, freezeCostUI;
-	public Button blockButton, lockButton, freezeButton;
+	public Button groundJumpButton, airJumpButton, boostButton, blockButton, lockButton, freezeButton;
 	Rigidbody2D rb;
-	Player player;
+	Vector2 mousePos;
+	Player p;
 
 	void Start() 
 	{
 		//Get the player and it rigidbody
-		player = Player.i; rb = player.rb;
+		p = Player.i; rb = p.rb;
 		//Update the cost UI
 		groundJumpCostUI.text = groundJumpCost.ToString();
 		airJumpCostUI.text = airJumpCost.ToString();
@@ -51,116 +53,169 @@ public class Power : MonoBehaviour
 		//Updat the power counter
 		powerCounter.text = "Power: " + powerPoint;
 		//Get the mouse position
-		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		//If begin place block
-		if(placeBlock)
+		mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		//Control the cost
+		CostManagement();
+		//Run power function
+		JumpChange(); PlacingBlock(); StartLocking(); BeginFreeze();
+	}
+
+	void CostManagement()
+	{
+		///Update the button interaction depend of it cost
+		if(powerPoint >= groundJumpCost) {groundJumpButton.interactable = true;}
+		else {groundJumpButton.interactable = false;}
+		if(powerPoint >= airJumpCost) {airJumpButton.interactable = true;}
+		else {airJumpButton.interactable = false;}
+		if(powerPoint >= boostCost) {boostButton.interactable = true;}
+		else {boostButton.interactable = false;}
+		if(powerPoint >= blockCost) {blockButton.interactable = true;}
+		else {blockButton.interactable = false;}
+		if(powerPoint >= lockCost) {lockButton.interactable = true;}
+		else {lockButton.interactable = false;}
+		if(powerPoint >= freezeCost) {freezeButton.interactable = true;}
+		else {freezeButton.interactable = false;}
+	}
+
+	#region Jump
+		public void Jumping() 
 		{
-			//No longer able to press block button
-			blockButton.interactable = false;
-			//If pressing the mouse button
-			if(Input.GetMouseButtonDown(0))
+			//Consume the cost
+			powerPoint -= jumpCost;
+			//Jump upward using jump force
+			rb.velocity = Vector2.up * jumpForce;
+		}
+		void JumpChange()
+		{
+			//Ground jump if the player are touching ground and use the ground cost
+			if(p.isGround) {groundJump.SetActive(true); airJump.SetActive(false); jumpCost = groundJumpCost;}
+			//Air jump if the player are in the air and use the air cost
+			else {groundJump.SetActive(false); airJump.SetActive(true); jumpCost = airJumpCost;}
+		}
+	#endregion
+
+	#region Boost
+		public void Boosting() 
+		{
+			//Consume the cost
+			powerPoint -= boostCost;
+			//Increase the player speed with boost speed then begin reset it after duration
+			p.speed += boostSpeed; Invoke("ResetBoost", boostDuration);
+		}
+		//Reset the player speed from boosting
+		void ResetBoost() {p.speed -= boostSpeed;}
+	#endregion
+
+	#region Block
+		public void Block() 
+		{
+			//If able to interact with block button	
+			if(blockButton.interactable)
 			{
-				//Create theblock at mouse position with no rotation
-				Instantiate(block, mousePos, Quaternion.identity);
-				//Has placed block
-				placeBlock = false;
-				//Able to interact with block button
-				blockButton.interactable = true;
+				//Placing block
+				placeBlock = true;
+				//Consume the cost
+				powerPoint -= blockCost;
 			}
 		}
-		//If begin locking
-		if(locking)
+		void PlacingBlock()
 		{
-			//No longer able to press lock button
-			lockButton.interactable = false;
-			//If pressing the mouse button
-			if(Input.GetMouseButtonDown(0))
+			//If begin place block
+			if(placeBlock)
 			{
-				//Get the pillar layer int
-				int layer = LayerMask.NameToLayer("Pillar");
-				//Create an ray at mouse position with no length at the pillar layer
-				RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.up, 0, 1<<layer);
-				//If ray hit something
-				if(ray)
+				//No longer able to press block button
+				blockButton.interactable = false;
+				//If pressing the mouse button
+				if(Input.GetMouseButtonDown(0))
 				{
-					//Get the pillar raycast has hit
-					Pillar pillar = ray.collider.transform.parent.GetComponent<Pillar>();
-					//If pillar are not lock
-					if(!pillar.locked) 
+					//Create theblock at mouse position with no rotation
+					Instantiate(block, mousePos, Quaternion.identity);
+					//Has placed block
+					placeBlock = false;
+					//Able to interact with block button
+					blockButton.interactable = true;
+				}
+			}
+		}
+	#endregion
+
+	#region Locking
+		public void Locking() 
+		{
+			//If able to interact with lock button	
+			if(lockButton.interactable)
+			{
+				//Locking
+				locking = true;
+				//Consume the cost
+				powerPoint -= lockCost;
+			}
+		}
+		void StartLocking()
+		{
+			//If begin locking
+			if(locking)
+			{
+				//No longer able to press lock button
+				lockButton.interactable = false;
+				//If pressing the mouse button
+				if(Input.GetMouseButtonDown(0))
+				{
+					//Get the pillar layer int
+					int layer = LayerMask.NameToLayer("Pillar");
+					//Create an ray at mouse position with no length at the pillar layer
+					RaycastHit2D ray = Physics2D.Raycast(mousePos, Vector2.up, 0, 1<<layer);
+					//If ray hit something
+					if(ray)
 					{
-						//Lock the pillar and has used lock
-						pillar.locked = true; locking = false;
-						//Able to interact with lock button
-						lockButton.interactable = true;
+						//Get the pillar raycast has hit
+						Pillar pillar = ray.collider.transform.parent.GetComponent<Pillar>();
+						//If pillar are not lock
+						if(!pillar.locked) 
+						{
+							//Lock the pillar and has used lock
+							pillar.locked = true; locking = false;
+							//Able to interact with lock button
+							lockButton.interactable = true;
+						}
 					}
 				}
 			}
 		}
-		//If pillar are freeze
-		if(freezed)
+	#endregion
+
+	#region Freezing
+		public void Freezing() 
 		{
-			//Display the freeze progress slowly decreasing
-			freezeProgress.fillAmount = 1-(freezeCounter/freezeDuration);
-			//Increase the freezecounter over time
-			freezeCounter += Time.deltaTime;
-			//If freeze counter has reach it duration
-			if(freezeCounter >= freezeDuration)
+			//If able to freeze
+			if(!freezed) 
 			{
-				//Reset the freeze counter
-				freezeCounter -= freezeCounter;
-				//No longer freeze 
-				freezed = false;
-				//Reset freeze progress
-				freezeProgress.fillAmount = 1;
+				//Begin freeze 
+				freezed = true;
+				//Consume the cost
+				powerPoint -= freezeCost;
 			}
 		}
-		//Ground jump when the player is on ground an not allow to air jump
-		if(player.isGround) {groundJump.SetActive(true); airJump.SetActive(false);}
-		//Air jump when the player is not on ground an not allow to ground jump
-		else {groundJump.SetActive(false); airJump.SetActive(true);}
-	}
-
-	public void Jumping() 
-	{
-		//Jump upward using jump force
-		rb.velocity = Vector2.up * jumpForce;
-	}
-
-	public void Boosting() 
-	{
-		//Increase the player speed with boost speed then begin reset it after duration
-		player.speed += boostSpeed; Invoke("ResetBoost", boostDuration);
-	}
-
-	public void ResetBoost() 
-	{
-		//Reset the player speed from boosting
-		player.speed -= boostSpeed;
-	}
-
-	public void Block() 
-	{
-		//If able to interact with block button	
-		if(blockButton.interactable)
+		void BeginFreeze()
 		{
-			//Placing block
-			placeBlock = true;
+			//If pillar are freeze
+			if(freezed)
+			{
+				//Display the freeze progress slowly decreasing
+				freezeProgress.fillAmount = 1-(freezeCounter/freezeDuration);
+				//Increase the freezecounter over time
+				freezeCounter += Time.deltaTime;
+				//If freeze counter has reach it duration
+				if(freezeCounter >= freezeDuration)
+				{
+					//Reset the freeze counter
+					freezeCounter -= freezeCounter;
+					//No longer freeze 
+					freezed = false;
+					//Reset freeze progress
+					freezeProgress.fillAmount = 1;
+				}
+			}
 		}
-	}
-
-	public void Locking() 
-	{
-		//If able to interact with lock button	
-		if(lockButton.interactable)
-		{
-			//Locking
-			locking = true;
-		}
-	}
-
-	public void Freezing() 
-	{
-		//Begin freeze if able to
-		if(!freezed) freezed = true;
-	}
+	#endregion
 }

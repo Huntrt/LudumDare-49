@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c957fb42dd09b4aa1e91a17ea57ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerPoint: 0
+  powerPoint: 100
   powerCounter: {fileID: 1258893391}
   groundJumpCost: 1
   airJumpCost: 5
@@ -310,6 +310,9 @@ MonoBehaviour:
   lockCostUI: {fileID: 1244581229}
   blockCostUI: {fileID: 1044931178}
   freezeCostUI: {fileID: 1386960364}
+  groundJumpButton: {fileID: 407707577}
+  airJumpButton: {fileID: 1188158504}
+  boostButton: {fileID: 1599506579}
   blockButton: {fileID: 1590794233}
   lockButton: {fileID: 2104560643}
   freezeButton: {fileID: 847443354}
