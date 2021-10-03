@@ -11,16 +11,23 @@ public class Player : MonoBehaviour
 	public Power power;
 	public GameObject blockIndicate, lockIndicate;
 	public bool started;
+	[SerializeField] GameObject startTutor, lockPower;
+	public GameObject overMenu;
+	[SerializeField] TMPro.TextMeshProUGUI overTitle;
 
-	//Make player into singleton
-	void Awake() {i = this;}
+	//Make player into singleton and reset time scale
+	void Awake() {Time.timeScale = 1;i = this;}
 
 	void Update()
 	{
-		//Start when pressing space
-		if(!started && Input.GetKeyDown(KeyCode.Space)) 
-		//Change type to dynamic and start the game
-		{started = true; rb.bodyType = RigidbodyType2D.Dynamic;}
+		//When pressing space and haven't started
+		if(Input.GetKeyDown(KeyCode.Space) && !started)
+		{
+			//Starting and change rigidbody to dynamic
+			started=true; rb.bodyType = RigidbodyType2D.Dynamic;
+			//Hide tutor and unlock power 
+			startTutor.SetActive(false); lockPower.SetActive(false);
+		}
 	}
 
 	void FixedUpdate()
@@ -51,8 +58,16 @@ public class Player : MonoBehaviour
 	{
 		//Is on ground if has collide with pillar
 		if(other.collider.CompareTag("Pillar")) {isGround = true;}
-		//Reset the player to spawnpoint if hit void
-		if(other.collider.CompareTag("Void")) {transform.position = spawnpoint;}
+		//Die if hit void
+		if(other.collider.CompareTag("Void")) {Die();}
+	}
+
+	void Die()
+	{
+		//Acitve the game over menu and deactive the player
+		overMenu.SetActive(true); gameObject.SetActive(false);
+		//Display the over text with score
+		overTitle.text = "GAME OVER - Score: " + Generator.i.score;  
 	}
 
 	private void OnCollisionExit2D(Collision2D other) 

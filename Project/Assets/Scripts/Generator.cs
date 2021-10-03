@@ -11,6 +11,7 @@ public class Generator : MonoBehaviour
 	public float despawnLimit;
 	[SerializeField] Transform startPillar;
 	public Vector2 latestPillar;
+	[SerializeField] SceneControl scene;
 
     void Awake()
     {
@@ -30,6 +31,8 @@ public class Generator : MonoBehaviour
 	{
 		//Display score
 		scoreCounter.text = score.ToString();
+		//Back to game if the game has over while pressing space
+		if(Player.i.overMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Space)) {scene.ToGame();}
 	}
 
     public void NextPillar()

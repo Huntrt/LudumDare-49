@@ -27,8 +27,8 @@ Interface:
 	✓ Score counter
 	✓ Power Counter
 	✓ Power Increase
-	▪ Title
-	▪ Play
-	▪ Restart
+	✓ Title
+	✓ Play
+	✓ Restart
 	▪ Sound
 	▪ Tutorial
